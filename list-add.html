@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - リスト追加</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div style="text-align: center; margin: 20px 0;">
+        <h2>リスト追加 <a href="todolist.html" style="text-decoration: none; color: black;">←</a></h2>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 50vh;">
+        <div style="background-color: #FFE4D6; padding: 20px; border-radius: 8px; width: 80%; max-width: 400px;">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px;">タイトル</label>
+                <input type="text" id="listTitle" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; background-color: #808080;">
+            </div>
+            <button onclick="saveList()" style="width: 100%; padding: 10px; background-color: #4169E1; color: white; border: none; border-radius: 4px; cursor: pointer;">追加</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function saveList() {
+            const title = document.getElementById('listTitle').value;
+            
+            if (!title) {
+                alert('タイトルを入力してください');
+                return;
+            }
+            
+            // 既存のカテゴリーリストを取得
+            const categories = JSON.parse(localStorage.getItem('categories') || '["やること", "学校"]');
+            
+            // 新しいカテゴリーを追加（重複チェック）
+            if (!categories.includes(title)) {
+                categories.push(title);
+                // LocalStorageに保存
+                localStorage.setItem('categories', JSON.stringify(categories));
+            }
+            
+            // ToDoリスト画面に戻る
+            window.location.href = 'todolist.html';
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html> 

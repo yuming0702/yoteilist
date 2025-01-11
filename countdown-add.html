@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - カウントダウン追加</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="countdown-add-container">
+        <div class="countdown-add-header">
+            <h2>カウントダウン追加</h2>
+            <a href="countdown.html" class="close-button">×</a>
+        </div>
+
+        <form id="countdownForm" onsubmit="saveCountdown(event)">
+            <div class="form-group">
+                <label class="form-label" for="countdownTitle">タイトル</label>
+                <input type="text" id="countdownTitle" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="countdownDate">日にち</label>
+                <input type="date" id="countdownDate" class="form-input" required>
+            </div>
+            <button type="submit" class="add-button">追加</button>
+        </form>
+    </div>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function saveCountdown(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('countdownTitle').value;
+            const targetDate = document.getElementById('countdownDate').value;
+            
+            // 既存のカウントダウンを取得
+            const countdowns = JSON.parse(localStorage.getItem('countdowns') || '[]');
+            
+            // 新しいカウントダウンを追加
+            countdowns.push({
+                title: title,
+                targetDate: targetDate,
+                completed: false
+            });
+            
+            // LocalStorageに保存
+            localStorage.setItem('countdowns', JSON.stringify(countdowns));
+            
+            // カウントダウン画面に戻る
+            window.location.href = 'countdown.html';
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html> 

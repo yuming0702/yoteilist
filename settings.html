@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - 設定</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            display: flex;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header-time {
+            background-color: #4169E1;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .settings-sidebar {
+            width: 300px;
+            background-color: #4169E1;
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .settings-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .settings-section {
+            margin-top: 40px;
+        }
+
+        .settings-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-icon {
+            font-size: 24px;
+        }
+
+        .settings-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-item {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            text-align: left;
+            padding: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="header">
+            <div class="header-title">DAILY</div>
+            <div class="header-time" id="current-time"></div>
+        </div>
+    </div>
+
+    <div class="settings-sidebar">
+        <div class="settings-header">
+            <div class="settings-title">設定画面</div>
+            <a href="home.html" class="back-link">←</a>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-heading">
+                <span class="settings-icon">⚙</span>
+                設定
+            </div>
+
+            <div class="settings-menu">
+                <a href="profile.html" class="menu-item">プロフィール登録</a>
+                <button class="menu-button">ID表示</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

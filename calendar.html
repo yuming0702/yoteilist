@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - カレンダー</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="calendar-container">
+        <div class="view-toggle">
+            <button class="view-button active" onclick="switchView('month')">月間</button>
+            <button class="view-button" onclick="switchView('week')">週間</button>
+        </div>
+
+        <div class="calendar-nav">
+            <div class="calendar-nav-buttons">
+                <button onclick="changeMonth(-1)" class="nav-button">＜</button>
+                <h2 id="currentMonthYear"></h2>
+                <button onclick="changeMonth(1)" class="nav-button">＞</button>
+            </div>
+            <button onclick="location.href='calendar-add.html'" class="add-schedule-button">予定を追加</button>
+        </div>
+
+        <div id="month-view" class="calendar-view active">
+            <table class="calendar">
+                <thead>
+                    <tr>
+                        <th>日</th>
+                        <th>月</th>
+                        <th>火</th>
+                        <th>水</th>
+                        <th>木</th>
+                        <th>金</th>
+                        <th>土</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body"></tbody>
+            </table>
+        </div>
+
+        <div id="week-view" class="calendar-view">
+            <div class="week-header">
+                <div class="week-day">日</div>
+                <div class="week-day">月</div>
+                <div class="week-day">火</div>
+                <div class="week-day">水</div>
+                <div class="week-day">木</div>
+                <div class="week-day">金</div>
+                <div class="week-day">土</div>
+            </div>
+            <div class="week-grid" id="week-grid"></div>
+        </div>
+    </div>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        let currentDate = new Date();
+        let currentView = 'month';
+
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function updateUsername() {
+            const username = localStorage.getItem('username') || '__';
+            document.getElementById('menuWelcome').textContent = `ようこそ、${username}さん`;
+        }
+
+        function getEvents() {
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+            const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            
+            // Convert todos to event format with "ToDo: " prefix
+            const todoEvents = todos.map(todo => ({
+                title: 'ToDo: ' + todo.title,
+                date: todo.date,
+                type: 'todo'
+            }));
+
+            return [...events, ...todoEvents];
+        }
+
+        function generateCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const startingDay = firstDay.getDay();
+            const monthLength = lastDay.getDate();
+
+            document.getElementById('currentMonthYear').textContent = 
+                `${year}年${month + 1}月`;
+
+            const calendarBody = document.getElementById('calendar-body');
+            calendarBody.innerHTML = '';
+
+            // Get all events
+            const events = getEvents();
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+                
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    if (i === 0 && j < startingDay) {
+                        cell.textContent = '';
+                    } else if (date > monthLength) {
+                        cell.textContent = '';
+                    } else {
+                        const dateDiv = document.createElement('div');
+                        dateDiv.className = 'date-number';
+                        dateDiv.textContent = date;
+                        cell.appendChild(dateDiv);
+
+                        // Create event container
+                        const eventContainer = document.createElement('div');
+                        eventContainer.className = 'event-container';
+
+                        // Check for events on this date
+                        const currentDateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+                        const dayEvents = events.filter(event => event.date === currentDateStr);
+
+                        // Add events to the container
+                        dayEvents.forEach(event => {
+                            const eventDiv = document.createElement('div');
+                            eventDiv.className = 'calendar-event';
+                            eventDiv.textContent = event.title;
+                            eventContainer.appendChild(eventDiv);
+                        });
+
+                        cell.appendChild(eventContainer);
+
+                        if (date === new Date().getDate() && 
+                            month === new Date().getMonth() && 
+                            year === new Date().getFullYear()) {
+                            cell.classList.add('today');
+                        }
+                        date++;
+                    }
+                    row.appendChild(cell);
+                }
+                calendarBody.appendChild(row);
+                if (date > monthLength) break;
+            }
+        }
+
+        function generateWeekView() {
+            const weekGrid = document.getElementById('week-grid');
+            weekGrid.innerHTML = '';
+
+            const startOfWeek = new Date(currentDate);
+            startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+
+            // イベントを取得
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+
+            for (let i = 0; i < 7; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'week-cell';
+
+                // 日付を表示
+                const dateDiv = document.createElement('div');
+                const currentDate = new Date(startOfWeek);
+                currentDate.setDate(startOfWeek.getDate() + i);
+                dateDiv.textContent = currentDate.getDate();
+                cell.appendChild(dateDiv);
+
+                // その日のイベントを表示
+                const dayEvents = events.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate.getDate() === currentDate.getDate() &&
+                           eventDate.getMonth() === currentDate.getMonth() &&
+                           eventDate.getFullYear() === currentDate.getFullYear();
+                });
+
+                dayEvents.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.className = 'calendar-event';
+                    eventDiv.textContent = event.title;
+                    cell.appendChild(eventDiv);
+                });
+
+                weekGrid.appendChild(cell);
+            }
+        }
+
+        function switchView(view) {
+            currentView = view;
+            document.querySelectorAll('.view-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.querySelector(`button[onclick="switchView('${view}')"]`).classList.add('active');
+
+            document.querySelectorAll('.calendar-view').forEach(view => {
+                view.classList.remove('active');
+            });
+
+            if (view === 'month') {
+                document.getElementById('month-view').classList.add('active');
+                generateCalendar();
+            } else {
+                document.getElementById('week-view').classList.add('active');
+                generateWeekView();
+            }
+        }
+
+        function changeMonth(delta) {
+            currentDate.setMonth(currentDate.getMonth() + delta);
+            if (currentView === 'month') {
+                generateCalendar();
+            } else {
+                generateWeekView();
+            }
+        }
+
+        // 初期化
+        updateTime();
+        updateUsername();
+        generateCalendar();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html> 

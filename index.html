@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - ログイン</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <h1>DAILY</h1>
+        
+        <div class="form-container">
+            <!-- ログインフォーム -->
+            <form id="loginForm" class="login-form" onsubmit="return handleLogin(event)">
+                <h2>ログイン</h2>
+                <div class="form-group">
+                    <input type="text" id="loginUsername" placeholder="ユーザー名" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="パスワード" required>
+                </div>
+                <button type="submit">ログイン</button>
+                <p class="switch-form">
+                    <a href="#" onclick="toggleForms()">新規登録はこちら</a>
+                </p>
+            </form>
+
+            <!-- アカウント作成フォーム -->
+            <form id="signupForm" class="signup-form" style="display: none;" onsubmit="return handleSignup(event)">
+                <h2>新規登録</h2>
+                <div class="form-group">
+                    <input type="text" id="signupUsername" placeholder="ユーザー名" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPassword" placeholder="パスワード" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirmPassword" placeholder="パスワード（確認）" required>
+                </div>
+                <button type="submit">アカウント作成</button>
+                <p class="switch-form">
+                    <a href="#" onclick="toggleForms()">ログインに戻る</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            }
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // パスワード確認
+            if (password !== confirmPassword) {
+                alert('パスワードが一致しません');
+                return false;
+            }
+
+            // 既存のユーザーを確認
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.some(user => user.username === username)) {
+                alert('このユーザー名は既に使用されています');
+                return false;
+            }
+
+            // 新しいユーザーを追加
+            users.push({
+                username: username,
+                password: password // 実際のアプリケーションではパスワードは暗号化すべきです
+            });
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('アカウントが作成されました。ログインしてください。');
+            toggleForms();
+            return false;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // ユーザー認証
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                // ログイン成功
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('username', user.username);
+                window.location.href = 'home.html';
+            } else {
+                alert('ユーザー名またはパスワードが正しくありません');
+            }
+            return false;
+        }
+    </script>
+</body>
+</html> 

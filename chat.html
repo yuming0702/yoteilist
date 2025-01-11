@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - チャット</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- チャットメイン画面 -->
+    <div class="chat-container">
+        <!-- ユーザーリスト -->
+        <div class="chat-list" id="userList">
+            <div class="chat-user" onclick="openChat('聡史')">
+                <span class="chat-name">聡史</span>
+                <span class="chat-arrow">←</span>
+            </div>
+            <div class="chat-user" onclick="openChat('はぐみ')">
+                <span class="chat-name">はぐみ</span>
+                <span class="chat-arrow">←</span>
+            </div>
+            <div class="chat-user" onclick="openChat('ガブ')">
+                <span class="chat-name">ガブ</span>
+                <span class="chat-arrow">←</span>
+            </div>
+            <div class="chat-user" onclick="openChat('ユーガ')">
+                <span class="chat-name">ユーガ</span>
+                <span class="chat-arrow">←</span>
+            </div>
+        </div>
+
+        <!-- トーク画面 -->
+        <div class="chat-window" id="chatWindow" style="display: none;">
+            <div class="chat-header">
+                <button class="back-button" onclick="closeChat()">←</button>
+                <span class="chat-title">トーク</span>
+                <span id="currentChatUser"></span>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <!-- メッセージはここに動的に追加されます -->
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="メッセージを入力">
+                <button onclick="sendMessage()">送信</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openChat(username) {
+            document.getElementById('userList').style.display = 'none';
+            document.getElementById('chatWindow').style.display = 'flex';
+            document.getElementById('currentChatUser').textContent = username;
+            loadMessages(username);
+        }
+
+        function closeChat() {
+            document.getElementById('userList').style.display = 'block';
+            document.getElementById('chatWindow').style.display = 'none';
+        }
+
+        function loadMessages(username) {
+            const messages = JSON.parse(localStorage.getItem(`chat_${username}`) || '[]');
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            messages.forEach(msg => displayMessage(msg));
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            const username = document.getElementById('currentChatUser').textContent;
+            
+            if (message) {
+                const messageObj = {
+                    text: message,
+                    sender: 'me',
+                    timestamp: new Date().toISOString()
+                };
+
+                // メッセージを保存
+                const messages = JSON.parse(localStorage.getItem(`chat_${username}`) || '[]');
+                messages.push(messageObj);
+                localStorage.setItem(`chat_${username}`, JSON.stringify(messages));
+
+                // メッセージを表示
+                displayMessage(messageObj);
+                input.value = '';
+            }
+        }
+
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${message.sender === 'me' ? 'sent' : 'received'}`;
+            
+            const textDiv = document.createElement('div');
+            textDiv.className = 'message-text';
+            textDiv.textContent = message.text;
+            
+            messageDiv.appendChild(textDiv);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function updateUsername() {
+            const username = localStorage.getItem('username') || '__';
+            document.getElementById('menuWelcome').textContent = `ようこそ、${username}さん`;
+        }
+
+        // Enterキーでメッセージを送信
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        updateTime();
+        updateUsername();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html> 

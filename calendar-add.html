@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - 予定追加</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div class="time-display" id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="event-add-container">
+        <div class="event-add-header">
+            <h1>新しい予定を追加</h1>
+            <button class="close-button" onclick="location.href='calendar.html'">×</button>
+        </div>
+
+        <form class="event-add-form" onsubmit="addEvent(event)">
+            <div class="input-group">
+                <label>タイトル</label>
+                <input type="text" id="eventTitle" class="event-title-input" value="誕生日" required>
+            </div>
+
+            <div class="input-group">
+                <label>日付</label>
+                <input type="date" id="eventDate" class="event-date-input" value="2025-05-02" required>
+            </div>
+
+            <div class="input-group">
+                <label>メモ</label>
+                <textarea id="eventMemo" class="event-memo-input" placeholder="メモを入力してください"></textarea>
+            </div>
+
+            <button type="submit" class="event-add-button">追加</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', options);
+        }
+
+        function addEvent(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('eventTitle').value;
+            const date = document.getElementById('eventDate').value;
+            const memo = document.getElementById('eventMemo').value;
+
+            const events = JSON.parse(localStorage.getItem('events') || '[]');
+            events.push({
+                title,
+                date,
+                memo
+            });
+
+            localStorage.setItem('events', JSON.stringify(events));
+            window.location.href = 'calendar.html';
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html> 

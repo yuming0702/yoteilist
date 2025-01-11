@@ -1,0 +1,1911 @@
+/* 共通スタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ログイン画面のスタイル */
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('image/space.avif');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.login-form button,
+.signup-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-form button:hover,
+.signup-form button:hover {
+    background-color: #357abd;
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.switch-form a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* ホームページのスタイル */
+.home-body {
+    background-image: url('image/space.avif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 1rem;
+    color:black;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    width: 150px;
+}
+
+.header-center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-right {
+    width: 150px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: #333;
+}
+
+.main-nav {
+    background-color: rgb(153, 173, 225);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button {
+    background-color:white;
+    color: #00030a;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+    text-align: center;
+}
+
+.nav-button:hover {
+    background-color: #e8eaf6;
+    transform: translateY(-2px);
+}
+
+main {
+    padding: 2rem;
+}
+
+.date-display {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    padding: 0.5rem 2rem;
+    margin: 2rem auto;
+    text-align: center;
+    max-width: 400px;
+    border-radius: 4px;
+}
+
+.welcome-message {
+    background-color: rgba(74, 107, 181, 0.8);
+    color: white;
+    padding: 1rem;
+    margin: 1rem auto;
+    text-align: center;
+    max-width: 600px;
+    border-radius: 4px;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.dashboard-item {
+    background-color: rgba(74, 107, 181, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    width: 250px;
+}
+
+.dashboard-item h2 {
+    margin-bottom: 1rem;
+}
+
+/* 共通ページスタイル */
+.page-body {
+    background-image: url('image/space.avif');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* カレンダーページのスタイル */
+.calendar-container {
+    background-color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.view-toggle {
+    background-color: #4a6bb5;
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.view-button {
+    padding: 0.5rem 2rem;
+    border: 2px solid white;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.view-button.active {
+    background-color: white;
+    color: #4a6bb5;
+}
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 1rem 0;
+}
+
+.calendar-nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #4a6bb5;
+    font-weight: bold;
+}
+
+#currentMonthYear {
+    color: #4a6bb5;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.add-schedule-button {
+    background-color: #4a6bb5;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.add-schedule-button:hover {
+    background-color: #3a5a9e;
+}
+
+/* Month view styles */
+.calendar {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 3px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.calendar th {
+    padding: 0.5rem;
+    text-align: center;
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+.calendar td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    width: calc(100% / 7);
+    height: 100px;
+    vertical-align: top;
+    position: relative;
+    box-sizing: border-box;
+    color: black;
+}
+
+.calendar td:hover {
+    background-color: #f8f9fa;
+}
+
+.calendar td.today {
+    background-color: #f5f5f5;
+}
+
+/* Week view styles */
+.week-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    background-color: #f5f5f5;
+    padding: 3px;
+    border-radius: 8px 8px 0 0;
+}
+
+.week-day {
+    background-color: #f0f0f0;
+    padding: 0.5rem;
+    text-align: center;
+    color: #333;
+    font-size: 1rem;
+}
+
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    background-color: #f5f5f5;
+    padding: 3px;
+    border-radius: 0 0 8px 8px;
+}
+
+.week-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+}
+
+.week-cell {
+    flex: 1;
+    height: 100px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    position: relative;
+    color: #000;
+    box-sizing: border-box;
+}
+
+.date-cell {
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+}
+
+.event-cell {
+    background-color: white;
+}
+
+.calendar-view {
+    display: none;
+}
+
+.calendar-view.active {
+    display: block;
+}
+
+/* Add background image to page body */
+.page-body {
+    background-image: url('image/space.avif');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.todo-tag {
+    background-color: #4a6bb5;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    display: inline-block;
+    font-size: 0.8rem;
+}
+
+/* カウントダウンページのスタイル */
+.countdown-container {
+    background-color: white;
+    min-height: 100vh;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.countdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    background-color: #4a6bb5;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.countdown-header h1 {
+    color: white;
+    margin: 0;
+}
+
+.countdown-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.add-countdown-btn {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #4a6bb5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-countdown-btn {
+    padding: 10px 20px;
+    background-color: #4A6BB5;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.countdown-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.countdown-item {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+}
+
+.countdown-item.completed {
+    opacity: 0.7;
+    background-color: #f0f0f0;
+}
+
+.countdown-checkbox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #4a6bb5;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.countdown-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+.countdown-days {
+    font-size: 1.8rem;
+    color: #4a6bb5;
+    text-align: center;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1200px) {
+    .countdown-items {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .countdown-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .countdown-items {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ハンバーガーメニュー */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: rgba(74, 107, 181, 0.95);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.side-menu.open {
+    right: 0;
+}
+
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.welcome-text {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.menu-item {
+    display: block;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.settings-icon {
+    margin-right: 10px;
+}
+
+.logout-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logout-icon {
+    margin-right: 10px;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+.menu-overlay.open {
+    display: block;
+}
+
+/* ToDoListページのスタイル */
+.todolist-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.todolist-categories {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.category-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.category-btn.active {
+    background-color: #4A6BB5;
+    color: white;
+}
+
+.list-add-btn {
+    padding: 8px 20px;
+    background-color: #ff9f43;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.todolist-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.add-todo-btn {
+    font-size: 24px;
+    color: #4A6BB5;
+    text-decoration: none;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #4A6BB5;
+}
+
+.delete-todo-btn {
+    padding: 10px 20px;
+    background-color: #4A6BB5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.todo-list {
+    margin-top: 20px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+.todo-checkbox {
+    font-size: 24px;
+    margin-right: 15px;
+    cursor: pointer;
+    color: #4A6BB5;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 20px;
+    color: #333;
+    margin-right: 20px;
+}
+
+.todo-date {
+    font-size: 18px;
+    color: #666;
+}
+
+/* ToDo追加ページのスタイ */
+.todo-add-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.todo-add-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.back-button {
+    text-decoration: none;
+    color: #4a6bb5;
+    font-size: 24px;
+    margin-right: 1rem;
+}
+
+.todo-add-content {
+    background-color: #f8d7c4;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.todo-title-input,
+.todo-date-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #666;
+    color: white;
+}
+
+.todo-add-button {
+    display: block;
+    width: 200px;
+    margin: 2rem auto 0;
+    padding: 0.8rem;
+    background-color: #4a6bb5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* チャットページのスタイル */
+.chat-container {
+    display: flex;
+    height: calc(100vh - 60px);
+    background-color: #f5f5f5;
+}
+
+.chat-list {
+    width: 300px;
+    background-color: white;
+    border-right: 1px solid #ddd;
+}
+
+.chat-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.chat-user:hover {
+    background-color: #f0f0f0;
+}
+
+.chat-name {
+    color: #000;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.chat-arrow {
+    color: #000;
+    font-size: 16px;
+}
+
+.chat-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #e6eaf5;
+}
+
+.chat-header {
+    padding: 15px;
+    background-color: #4a90e2;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chat-title {
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#currentChatUser {
+    color: #000;
+    font-size: 16px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 70%;
+    margin: 5px 0;
+    display: flex;
+}
+
+.message.sent {
+    align-self: flex-end;
+}
+
+.message.received {
+    align-self: flex-start;
+}
+
+.message-text {
+    padding: 10px 15px;
+    border-radius: 15px;
+    background-color: white;
+    color: #000;
+    font-size: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message.sent .message-text {
+    background-color: #4a90e2;
+    color: #000;
+}
+
+.chat-input {
+    padding: 15px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #000;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.chat-input button:hover {
+    background-color: #357abd;
+}
+
+/* カレンダービューのスタイル */
+.calendar-view {
+    display: none;
+}
+
+.calendar-view.active {
+    display: block;
+}
+
+#week-view .calendar {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#week-view th {
+    background-color: #f8f9fa;
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    font-weight: normal;
+}
+
+#week-view th:first-child {
+    width: 80px;
+}
+
+#week-view td {
+    height: 80px;
+    border: 1px solid #e0e0e0;
+    vertical-align: top;
+    padding: 0.5rem;
+}
+
+/* 予定追加画面のスタイル */
+.event-add-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-add-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+}
+
+.event-add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.event-title-input,
+.event-date-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.event-memo-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.event-add-button {
+    background-color: #4a6bb5;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100px;
+    margin-left: auto;
+}
+
+/* 時間表示のスタイル */
+#current-time {
+    background-color: #4a6bb5;
+    color: white;
+    padding: 0.5rem 2rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* ハンバーガーメニューの追加スタイル */
+.welcome-text {
+    color: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.settings-button, .logout-button {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.settings-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.logout-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.side-menu-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    padding-bottom: 1rem;
+}
+
+.side-menu-button {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.side-menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 設定画面のスタイル */
+.settings-container {
+    background-color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.back-arrow {
+    font-size: 2rem;
+    color: #4a6bb5;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.settings-header h1 {
+    color: white;
+    margin: 0;
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-section {
+    width: 100%;
+}
+
+.settings-section .settings-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(74, 107, 181, 0.8);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.settings-section .settings-button:hover {
+    background-color: rgba(74, 107, 181, 1);
+}
+
+/* 設定画面の背景スタイル */
+.page-body {
+    background-image: url('image/space.avif');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: white;
+}
+
+/* ハンバーガーメニュー内の設定セクション */
+.settings-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.settings-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    color: white;
+    cursor: pointer;
+}
+
+.settings-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.settings-menu {
+    padding: 0.5rem 0;
+}
+
+.settings-menu-item {
+    width: 100%;
+    padding: 0.8rem 2rem;
+    background: none;
+    border: none;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.settings-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 既存のスタイルを更新 */
+.side-menu-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    padding: 1rem 0;
+}
+
+.logout-button {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 0;
+    padding-top: 0.5rem;
+}
+
+/* 設定メニューのスタイル */
+#settings-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: rgba(74, 107, 181, 0.95);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+#settings-menu.show {
+    transform: translateX(-300px);
+}
+
+.settings-items {
+    padding-top: 2rem;
+}
+
+.back-arrow {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+/* メニューオーバーイ */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+.menu-overlay.show {
+    display: block;
+}
+
+/* 設定ボタン */
+.settings-btn {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.settings-icon {
+    margin-right: 0.5rem;
+}
+
+/* 設定画面のスタイル */
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.settings-icon-container {
+    margin-bottom: 2rem;
+}
+
+.settings-large-icon {
+    font-size: 3rem;
+    color: white;
+}
+
+.settings-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-button {
+    width: 100%;
+    padding: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.settings-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* サイドメニューの共通スタイ */
+.side-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: rgba(74, 107, 181, 0.95);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.side-menu.open {
+    right: 0;
+}
+
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.welcome-text {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.menu-item {
+    display: block;
+    padding: 15px 10px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.settings-icon {
+    margin-right: 10px;
+}
+
+.logout-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logout-icon {
+    margin-right: 10px;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+.menu-overlay.open {
+    display: block;
+}
+
+/* 背景スタイル */
+.home-body {
+    background-image: url('image/space.avif');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+/* Settings page specific styles */
+.settings-page {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(188, 196, 236, 0.95);
+    padding: 2rem 1rem;
+    display: none;
+    color: #333;
+}
+
+.settings-page.open {
+    display: block;
+}
+
+/* Countdown Add Page Styles */
+.countdown-add-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border: 1px solid #4a6bb5;
+    border-radius: 8px;
+}
+
+.countdown-add-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #4a6bb5;
+}
+
+.countdown-add-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: black;
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.date-select-btn {
+    background-color: #4a6bb5;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.add-button {
+    background-color: #4a6bb5;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.add-button:hover {
+    background-color: #3a5a9e;
+}
+
+/* Countdown page styles */
+.countdown-main {
+    padding: 2rem;
+}
+
+.countdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4a6bb5;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.countdown-header h1 {
+    margin: 0;
+}
+
+.new-countdown-btn {
+    background-color: #4a6bb5;
+    color: white;
+    border: 2px solid white;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.countdown-box {
+    background-color: #808080;
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.countdown-title {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #4a6bb5;
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.countdown-time {
+    background-color: #4a6bb5;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+/* Calendar event styles */
+.calendar-event {
+    background-color: #4a90e2;
+    color: white;
+    padding: 2px 6px;
+    margin: 2px 0;
+    border-radius: 3px;
+    font-size: 0.9em;
+    text-align: center;
+    display: inline-block;
+}
+
+.calendar-event.todo-event {
+    background-color: #4a6bb5;
+}
+
+.event-container {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-height: 60px;
+    overflow: hidden;
+}
+
+/* Settings page styles */
+.settings-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    padding: 2rem;
+}
+
+.settings-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 3rem;
+    border-radius: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.settings-icon-container {
+    margin-bottom: 2rem;
+}
+
+.settings-large-icon {
+    font-size: 4rem;
+    color: #4a6bb5;
+}
+
+.settings-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.settings-button {
+    background-color: #4a6bb5;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.settings-button:hover {
+    background-color: #3a5a9e;
+}
+
+/* 新規登録フォームスタイル */
+.register-container {
+    background-color: white;
+    min-height: 100vh;
+}
+
+.register-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.register-form {
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.register-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 1rem;
+}
+
+.register-input::placeholder {
+    color: white;
+}
+
+.register-button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.back-to-login {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+    background-color: #ff7f50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.todo-container {
+    background-color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ホームページの背景色のみ維持 */
+.home-container {
+    background-color: #b8c6e2;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Profile page styles */
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    color: #000;
+    font-size: 24px;
+    margin: 0;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-image-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-image-box {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    border: 2px dashed #63A1FF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.profile-image-box:hover {
+    background-color: #e0e0e0;
+    border-color: #4a90e2;
+}
+
+.profile-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#uploadText {
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    z-index: 1;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full-width {
+    width: 100%;
+}
+
+.form-group label {
+    color: #000;
+    font-size: 16px;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #63A1FF;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.profile-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+textarea.profile-input {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.save-button {
+    width: 120px;
+    padding: 12px;
+    background-color: #63A1FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #4a90e2;
+}
+
+.calendar-date {
+    display: block;
+    text-align: right;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.calendar-date.today {
+    color: #63A1FF;
+    font-weight: bold;
+}
+
+.calendar td .day-number {
+    color: black;
+    text-align: right;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 友達申請ページのスタイル */
+.friend-request-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    position: relative;
+}
+
+.back-arrow {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 2rem;
+    text-decoration: none;
+    color: #333;
+}
+
+.friend-request-content {
+    background-color: #63A1FF;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: 3rem;
+}
+
+.friend-request-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.friend-request-title {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 2px solid white;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.friend-name {
+    font-size: 1.2rem;
+    color: white;
+    margin-top: 1rem;
+}
+
+.friend-request-message {
+    text-align: center;
+    color: white;
+    font-size: 1.3rem;
+    margin: 2rem 0;
+}
+
+.friend-request-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.accept-button,
+.reject-button {
+    padding: 0.8rem 3rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #63A1FF;
+    color: white;
+    border: 2px solid white;
+}
+
+.accept-button:hover,
+.reject-button:hover {
+    background-color: white;
+    color: #63A1FF;
+} 

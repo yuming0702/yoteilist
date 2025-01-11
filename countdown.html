@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - カウントダウン</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="countdown-container">
+        <div class="countdown-header">
+            <h1>カウントダウン</h1>
+            <div class="countdown-buttons">
+                <button class="add-countdown-btn" onclick="location.href='countdown-add.html'">新規追加</button>
+                <button class="delete-countdown-btn" onclick="deleteSelectedCountdowns()">削除ボタン</button>
+            </div>
+        </div>
+
+        <div class="countdown-items" id="countdownList">
+            <!-- カウントダウンはJavaScriptで動的に追加されます -->
+        </div>
+    </div>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function calculateRemainingTime(targetDate) {
+            const now = new Date();
+            const target = new Date(targetDate);
+            
+            // 時間の差をミリ秒で取得
+            const diffTime = target - now;
+            
+            // 日数を計算（小数点以下を切り上げ）
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // 時間を計算
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            
+            // 分を計算
+            const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+            
+            // 秒を計算
+            const diffSeconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+            
+            if (diffTime < 0) {
+                // 過ぎた日数を計算（絶対値を取る）
+                const passedDays = Math.abs(Math.floor(diffTime / (1000 * 60 * 60 * 24)));
+                return `${passedDays}日 過ぎました`;
+            }
+
+            if (diffDays > 0) {
+                return `残り ${diffDays} 日`;
+            } else {
+                return `残り ${diffHours}時間${diffMinutes}分${diffSeconds}秒`;
+            }
+        }
+
+        function toggleCountdown(index) {
+            const countdowns = JSON.parse(localStorage.getItem('countdowns') || '[]');
+            countdowns[index].completed = !countdowns[index].completed;
+            localStorage.setItem('countdowns', JSON.stringify(countdowns));
+            displayCountdowns();
+        }
+
+        function deleteSelectedCountdowns() {
+            const countdowns = JSON.parse(localStorage.getItem('countdowns') || '[]');
+            const remainingCountdowns = countdowns.filter(countdown => !countdown.completed);
+            localStorage.setItem('countdowns', JSON.stringify(remainingCountdowns));
+            displayCountdowns();
+        }
+
+        function displayCountdowns() {
+            const countdowns = JSON.parse(localStorage.getItem('countdowns') || '[]');
+            const countdownList = document.getElementById('countdownList');
+            countdownList.innerHTML = '';
+
+            countdowns.forEach((countdown, index) => {
+                const remainingTime = calculateRemainingTime(countdown.targetDate);
+                const countdownItem = document.createElement('div');
+                countdownItem.className = 'countdown-item';
+                if (countdown.completed) {
+                    countdownItem.classList.add('completed');
+                }
+
+                countdownItem.innerHTML = `
+                    <div class="countdown-checkbox" onclick="toggleCountdown(${index})">
+                        ${countdown.completed ? '✓' : '●'}
+                    </div>
+                    <div class="countdown-title">${countdown.title}</div>
+                    <div class="countdown-days">${remainingTime}</div>
+                `;
+                
+                countdownList.appendChild(countdownItem);
+            });
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+        displayCountdowns();
+        setInterval(displayCountdowns, 1000); // カウントダウンを1秒ごとに更新
+    </script>
+</body>
+</html> 

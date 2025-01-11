@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - プロフィール登録</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time">時間表示</div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>プロフィール登録</h1>
+        </div>
+
+        <form class="profile-form" onsubmit="return saveProfile(event)">
+            <div class="profile-image-section">
+                <div class="profile-image-box" onclick="document.getElementById('imageInput').click()">
+                    <img id="imagePreview" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                    <div id="uploadText">クリックして画像をアップロード</div>
+                </div>
+                <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>名前</label>
+                    <input type="text" id="name" class="profile-input">
+                </div>
+                <div class="form-group">
+                    <label>メールアドレス</label>
+                    <input type="email" id="email" class="profile-input">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>性別</label>
+                    <select id="gender" class="profile-input">
+                        <option value="">選択してください</option>
+                        <option value="male">男性</option>
+                        <option value="female">女性</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>居住地</label>
+                    <input type="text" id="address" class="profile-input">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>生年月日</label>
+                    <input type="date" id="birthdate" class="profile-input">
+                </div>
+                <div class="form-group">
+                    <label>パスワード</label>
+                    <input type="password" id="password" class="profile-input">
+                </div>
+            </div>
+
+            <div class="form-group full-width">
+                <label>興味/趣味</label>
+                <input type="text" id="interests" class="profile-input">
+            </div>
+
+            <div class="form-group full-width">
+                <label>自己紹介</label>
+                <textarea id="bio" class="profile-input" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="save-button">保存</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    const uploadText = document.getElementById('uploadText');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    uploadText.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            
+            const username = localStorage.getItem('currentUser');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            // プロフィール情報を収集（入力された項目のみ）
+            const profile = {};
+            
+            // 各フィールドの値を確認し、入力があれば保存
+            const fields = ['name', 'email', 'gender', 'birthdate', 'address', 'password', 'interests', 'bio'];
+            fields.forEach(field => {
+                const value = document.getElementById(field).value.trim();
+                if (value) {
+                    profile[field] = value;
+                }
+            });
+
+            // 画像が選択されている場合は保存
+            if (imagePreview.style.display !== 'none' && imagePreview.src) {
+                profile.image = imagePreview.src;
+            } else {
+                // 既存の画像があれば保持
+                const existingProfile = JSON.parse(localStorage.getItem(`profile_${username}`) || '{}');
+                if (existingProfile.image) {
+                    profile.image = existingProfile.image;
+                }
+            }
+
+            // 既存のプロフィール情報と統合
+            const existingProfile = JSON.parse(localStorage.getItem(`profile_${username}`) || '{}');
+            const updatedProfile = { ...existingProfile, ...profile };
+
+            // プロフィール情報を保存
+            localStorage.setItem(`profile_${username}`, JSON.stringify(updatedProfile));
+            alert('プロフィールを保存しました');
+            window.location.href = 'settings.html';
+            
+            return false;
+        }
+
+        function loadProfile() {
+            const username = localStorage.getItem('currentUser');
+            const profile = JSON.parse(localStorage.getItem(`profile_${username}`) || '{}');
+            
+            // 保存されている情報があれば表示
+            const fields = ['name', 'email', 'gender', 'birthdate', 'address', 'password', 'interests', 'bio'];
+            fields.forEach(field => {
+                if (profile[field]) {
+                    document.getElementById(field).value = profile[field];
+                }
+            });
+
+            // 保存されている画像があれば表示
+            if (profile.image) {
+                const preview = document.getElementById('imagePreview');
+                const uploadText = document.getElementById('uploadText');
+                preview.src = profile.image;
+                preview.style.display = 'block';
+                uploadText.style.display = 'none';
+            }
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+        loadProfile();
+    </script>
+</body>
+</html> 

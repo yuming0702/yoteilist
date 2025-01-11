@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - ToDoList</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <div class="todolist-container">
+        <div class="todolist-categories" id="categoryList">
+            <!-- カテゴリーボタンはJavaScriptで動的に追加されます -->
+            <a href="list-add.html" class="list-add-btn">リスト追加</a>
+        </div>
+
+        <div class="todolist-buttons">
+            <a href="todo-add.html" class="add-todo-btn">＋</a>
+            <button class="delete-todo-btn" onclick="deleteCompletedTodos()">削除ボタン</button>
+        </div>
+
+        <div class="todo-list" id="todoList">
+            <!-- ToDoはJavaScriptで動的に追加されます -->
+        </div>
+    </div>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="home.html" class="menu-item">ホーム</a>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        let currentCategory = 'やること';
+
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function displayCategories() {
+            const categories = JSON.parse(localStorage.getItem('categories') || '["やること", "学校"]');
+            const categoryList = document.getElementById('categoryList');
+            
+            // リスト追加ボタンを一時的に削除
+            const addButton = categoryList.querySelector('.list-add-btn');
+            categoryList.innerHTML = '';
+            
+            // カテゴリーボタンを追加
+            categories.forEach(category => {
+                const btn = document.createElement('button');
+                btn.className = 'category-btn' + (category === currentCategory ? ' active' : '');
+                btn.onclick = () => switchCategory(category);
+                btn.textContent = category;
+                categoryList.appendChild(btn);
+            });
+            
+            // リスト追加ボタンを再追加
+            categoryList.appendChild(addButton);
+        }
+
+        function switchCategory(category) {
+            currentCategory = category;
+            displayCategories();
+            displayTodos();
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}年${month}月${day}日`;
+        }
+
+        function displayTodos() {
+            const todoList = document.getElementById('todoList');
+            const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            
+            todoList.innerHTML = '';
+            
+            // 現在のカテゴリーに属するTodoのみを表示
+            const filteredTodos = todos.filter(todo => todo.category === currentCategory);
+            
+            filteredTodos.forEach((todo, index) => {
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                if (todo.completed) {
+                    todoItem.classList.add('completed');
+                }
+                todoItem.innerHTML = `
+                    <span class="todo-checkbox" onclick="toggleTodo(${index})">
+                        ${todo.completed ? '✓' : '●'}
+                    </span>
+                    <span class="todo-text">${todo.title}</span>
+                    <span class="todo-date">${formatDate(todo.date)}</span>
+                `;
+                todoList.appendChild(todoItem);
+            });
+        }
+
+        function toggleTodo(index) {
+            const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            const filteredTodos = todos.filter(todo => todo.category === currentCategory);
+            const targetTodo = filteredTodos[index];
+            targetTodo.completed = !targetTodo.completed;
+            localStorage.setItem('todos', JSON.stringify(todos));
+            displayTodos();
+        }
+
+        function deleteCompletedTodos() {
+            const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            const remainingTodos = todos.filter(todo => 
+                !(todo.category === currentCategory && todo.completed)
+            );
+            localStorage.setItem('todos', JSON.stringify(remainingTodos));
+            displayTodos();
+        }
+
+        // 初期表示
+        updateTime();
+        setInterval(updateTime, 1000);
+        displayCategories();
+        displayTodos();
+
+        // LocalStorageの変更を監視
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'categories') {
+                displayCategories();
+            }
+        });
+    </script>
+</body>
+</html> 

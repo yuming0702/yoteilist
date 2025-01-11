@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - ホーム</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="home-body">
+    <header>
+        <div class="header-left">DAILY</div>
+        <div class="header-center">
+            <div id="current-time"></div>
+        </div>
+        <div class="header-right">
+            <button class="menu-button" onclick="toggleMenu()">≡</button>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="calendar.html" class="nav-button">カレンダー</a>
+        <a href="todolist.html" class="nav-button">ToDoList</a>
+        <a href="settings.html" class="nav-button">設定</a>
+        <a href="chat.html" class="nav-button">チャット</a>
+        <a href="countdown.html" class="nav-button">カウントダウン</a>
+    </nav>
+
+    <div class="date-display" id="currentDate"></div>
+    <div class="welcome-message" id="welcomeMessage">ようこそ、__さん</div>
+
+    <div class="dashboard">
+        <div class="dashboard-item" id="countdown0">
+            <h2>予定表示</h2>
+            <p class="countdown-text"></p>
+        </div>
+        <div class="dashboard-item" id="countdown1">
+            <h2>予定表示</h2>
+            <p class="countdown-text"></p>
+        </div>
+        <div class="dashboard-item" id="countdown2">
+            <h2>予定表示</h2>
+            <p class="countdown-text"></p>
+        </div>
+    </div>
+
+    <div class="side-menu">
+        <div class="side-menu-header">
+            <h2>メニュー</h2>
+            <button class="close-menu" onclick="toggleMenu()">×</button>
+        </div>
+        <div class="welcome-text" id="menuWelcome">ようこそ、yuさん</div>
+        <a href="calendar.html" class="menu-item">カレンダー</a>
+        <a href="todolist.html" class="menu-item">ToDoList</a>
+        <a href="countdown.html" class="menu-item">カウントダウン</a>
+        <a href="friend-request.html" class="menu-item">友達申請</a>
+        <a href="chat.html" class="menu-item">チャット</a>
+        <a href="settings.html" class="menu-item">
+            <span class="settings-icon">⚙</span>
+            設定
+        </a>
+        <div class="logout-section">
+            <a href="index.html" class="menu-item">
+                <span class="logout-icon">→</span>
+                ログアウト
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.side-menu').classList.toggle('open');
+            document.querySelector('.menu-overlay').classList.toggle('open');
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleString('ja-JP', timeOptions);
+        }
+
+        function updateDate() {
+            const now = new Date();
+            const dateOptions = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            };
+            const dateStr = now.toLocaleString('ja-JP', dateOptions);
+            document.getElementById('currentDate').textContent = 
+                dateStr.replace(/\//g, '年').replace(',', '') + '日';
+        }
+
+        function updateUsername() {
+            const username = localStorage.getItem('username') || '__';
+            document.getElementById('welcomeMessage').textContent = `ようこそ、${username}さん`;
+            document.getElementById('menuWelcome').textContent = `ようこそ、${username}さん`;
+        }
+
+        function displayCountdowns() {
+            const countdowns = JSON.parse(localStorage.getItem('countdowns') || '[]');
+            const countdownElements = [
+                document.querySelector('#countdown0 .countdown-text'),
+                document.querySelector('#countdown1 .countdown-text'),
+                document.querySelector('#countdown2 .countdown-text')
+            ];
+            
+            countdowns.slice(0, 3).forEach((countdown, index) => {
+                const targetDate = new Date(countdown.targetDate);
+                const now = new Date();
+                const diffTime = targetDate - now;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                const displayElement = countdownElements[index];
+                if (displayElement) {
+                    displayElement.parentElement.querySelector('h2').textContent = countdown.title;
+                    displayElement.textContent = `残り${diffDays}日`;
+                }
+            });
+        }
+
+        updateTime();
+        updateDate();
+        updateUsername();
+        displayCountdowns();
+        setInterval(updateTime, 1000);
+        setInterval(updateDate, 1000);
+    </script>
+</body>
+</html> 

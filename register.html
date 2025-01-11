@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAILY - 新規登録</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+    <div class="register-container">
+        <h1>新規登録</h1>
+        <form class="register-form" onsubmit="handleRegister(event)">
+            <input type="text" class="register-input" placeholder="ユーザー名" required>
+            <input type="password" class="register-input" placeholder="パスワード" required>
+            <input type="password" class="register-input" placeholder="パスワード（確認用）" required>
+            <button type="submit" class="register-button">作成</button>
+        </form>
+        <a href="index.html" class="back-to-login">ログインに戻る</a>
+    </div>
+
+    <script>
+        function handleRegister(event) {
+            event.preventDefault();
+            const inputs = event.target.querySelectorAll('input');
+            const username = inputs[0].value;
+            const password = inputs[1].value;
+            const confirmPassword = inputs[2].value;
+
+            if (password !== confirmPassword) {
+                alert('パスワードが一致しません');
+                return;
+            }
+
+            // ここでユーザー登録処理を実装
+            localStorage.setItem('username', username);
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html> 
